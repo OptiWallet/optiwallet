@@ -1,0 +1,15 @@
+{
+  "name": "optiwallet",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "bun test",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
