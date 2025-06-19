@@ -1,6 +1,6 @@
 import { render } from 'solid-js/web';
+import { App } from './App';
 
-import { TodoList } from './todo-list';
 
 const root = document.getElementById('root');
 
@@ -10,4 +10,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <TodoList />, root!);
+render(() => <App />, root!);
