@@ -48,7 +48,7 @@ export const CardDescription: ParentComponent<ComponentProps<"h3">> = (
 export const CardContent = (props: ComponentProps<"div">) => {
 	const [local, rest] = splitProps(props, ["class"]);
 
-	return <div class={cn("p-6 pt-0", local.class)} {...rest} />;
+	return <div class={cn("p-15 pt-5 flex flex-col justify-center align-middle gap-2", local.class)} {...rest} />;
 };
 
 export const CardFooter = (props: ComponentProps<"div">) => {

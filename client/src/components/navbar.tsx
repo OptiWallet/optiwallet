@@ -12,7 +12,7 @@ export const NavBar = (props: NavBarProps) => {
 
     return (
         <>
-            <div class='flex justify-between bg-background sticky top-0 drop-shadow-md'>
+            <div class='flex justify-between bg-background sticky top-0 px-2 drop-shadow-md'>
                 <NavigationMenu class={'flex items-center h-14'}>
                     <NavigationMenuItem>
                         <NavigationMenuTrigger withArrow={false} as= 'a' href="/" class="h-12 w-12 p-1">
