@@ -1,37 +1,18 @@
-import { createSignal } from "solid-js";
 import { Button } from "@/components/ui/button";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { TextField, TextFieldRoot } from "@/components/ui/textfield";
-
+import { createSignal } from "solid-js";
+import { NavBar } from "./components/navbar";
+  
 export const App = () => {
-  let nameField: HTMLInputElement | undefined;
-  const [name, setName] = createSignal<string>('Moshe');
+  let nameField: HTMLInputElement |    undefined;
+  const [name, setName] = createSignal<string>('Guest');
   return (
     <>
-      <NavigationMenu>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger withArrow={false}>Home</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <NavigationMenuLink href="/">Go to Home</NavigationMenuLink>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger withArrow={false}>Credit Cards</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <NavigationMenuLink href="/about">Learn more about us</NavigationMenuLink>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger withArrow={false}>Bank Accounts</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <NavigationMenuLink href="/contact">Get in touch</NavigationMenuLink>
-          </NavigationMenuContent>
-        </NavigationMenuItem> 
-      </NavigationMenu>
-      <div>
-        Welcome {name() || "Guest"}!
+      <NavBar/>
+      <div class='mx-auto max-w-5xl p-4 flex flex-col items-center justify-center gap-3 bg-zinc-100 dark:bg-zinc-900'>
+        Welcome {name()}!
         <TextFieldRoot>
-          <TextField placeholder="Name" ref={nameField} />
+          <TextField placeholder="Enter your name" ref={nameField} />
         </TextFieldRoot>
         <Button on:click={() => setName(nameField?.value ?? '')}>Press here!</Button>
       </div>

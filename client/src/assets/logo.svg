@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00c6ff" />
+    <stop offset="100%" stop-color="#8f00ff" />
+    </linearGradient>
+  </defs>
+  <!-- Abstract Credit Card Shape -->
+  <path fill="url(#gradient)" d="M40,70 h176 a20,20 0 0 1 20,20 v76 a20,20 0 0 1 -20,20 h-176 a20,20 0 0 1 -20,-20 v-76 a20,20 0 0 1 20,-20 z"/>
+  <!-- Expressive Curve for a Dynamic Touch -->
+  <path d="M40,110 Q128,50 216,110" fill="none" stroke="rgba(255, 255, 255, 0.7)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Accent Circles Suggesting Digital Interaction -->
+  <circle cx="180" cy="140" r="8" fill="white"/>
+  <circle cx="200" cy="140" r="8" fill="white"/>
+  </svg>

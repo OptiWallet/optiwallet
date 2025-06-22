@@ -78,6 +78,10 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
   }
+  .content {
+    margin: 0 auto;
+    max-width: 80em;
+  }
 }
 
 @theme inline {
