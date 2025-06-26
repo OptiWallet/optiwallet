@@ -72,7 +72,7 @@ export const Slider = (props: SliderProps) => {
           {/* Track background */}
           <div class="absolute h-2 w-full rounded-lg bg-gray-200 dark:bg-gray-700 top-1/2 left-0 z-0 transform -translate-y-1/2" />
           <div
-            class="absolute h-2 rounded-lg bg-[var(--primary)] top-1/2 left-0 z-0 transform -translate-y-1/2 transition-[width] duration-0"
+            class="absolute h-2 rounded-lg bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] top-1/2 left-0 z-0 transform -translate-y-1/2 transition-[width] duration-0"
             style={{ width: filledTrackPercent() + "%" }}
           />
           <input
