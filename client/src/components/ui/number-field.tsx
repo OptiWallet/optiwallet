@@ -217,12 +217,20 @@ export const NumberInput = (props: {
   min: number;
   max: number;
   defaultValue: number;
+  onChange: (value: number) => void;
 }) => {
+  const handleChange = (value: string) => {
+    const parsed = Number(value);
+    if (!isNaN(parsed)) {
+      props.onChange(parsed);
+    }
+  };
   return (
     <NumberField
       minValue={props.min}
       maxValue={props.max}
       defaultValue={props.defaultValue}
+      onChange={handleChange}
     >
       <NumberFieldGroup>
         <NumberFieldDecrementTrigger aria-label="Decrement" />

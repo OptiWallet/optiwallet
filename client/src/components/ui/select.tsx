@@ -129,14 +129,16 @@ export const SelectItem = <T extends ValidComponent = "li">(
 export function Filter(props: {
   options: string[];
   placeholder: string;
-  onChange?: (value: string) => void;
+  onChange: (value: number) => void;
 }) {
-  const [value, setValue] = createSignal<string>();
+  const [value, setValue] = createSignal<number>();
 
-  const handleChange = (val: string | null) => {
-    const safeVal = val ?? "";
-    setValue(safeVal);
-    props.onChange?.(safeVal);
+  const handleChange = (val: number | null) => {
+    if (val === null) {
+      return;
+    }
+    setValue(val);
+    props.onChange(val);
   };
 
   return (
