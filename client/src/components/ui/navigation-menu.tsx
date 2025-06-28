@@ -5,7 +5,8 @@ import type {
 	NavigationMenuTriggerProps,
 } from "@kobalte/core/navigation-menu";
 import { NavigationMenu as NavigationMenuPrimitive } from "@kobalte/core/navigation-menu";
-import type { PolymorphicProps } from "@kobalte/core/polymorphic";
+import type { PolymorphicAttributes, PolymorphicProps } from "@kobalte/core/polymorphic";
+import { A } from "@solidjs/router";
 import {
 	type ParentProps,
 	Show,
@@ -87,6 +88,7 @@ type navigationMenuTriggerProps<T extends ValidComponent = "button"> =
 		NavigationMenuTriggerProps<T> &
 			withArrow & {
 				class?: string;
+				imgSrc?: string;
 			}
 	>;
 
@@ -106,35 +108,43 @@ export const NavigationMenuTrigger = <T extends ValidComponent = "button">(
 		"children",
 		"withArrow",
 	]);
-
+	const restAs = rest as navigationMenuTriggerProps<T> & HTMLLinkElement;
 	return (
-		<NavigationMenuPrimitive.Trigger
-			class={cn(
-				"inline-flex w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium outline-none transition-colors duration-300 hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50",
-				local.class,
-			)}
-			{...rest}
-		>
-			{local.children}
-			<Show when={local.withArrow}>
-				<NavigationMenuPrimitive.Icon
-					class="ml-1 size-3 transition-transform duration-300 data-[expanded]:rotate-180"
-					as="svg"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-				>
-					<path
-						fill="none"
-						stroke="currentColor"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="m6 9l6 6l6-6"
-					/>
-				</NavigationMenuPrimitive.Icon>
-			</Show>
-		</NavigationMenuPrimitive.Trigger>
-	);
+    <NavigationMenuPrimitive.Trigger
+      class={cn(
+        "inline-flex w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium outline-none transition-colors duration-300 hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50",
+        local.class
+      )}
+      {...rest}
+    >
+      <Show when={restAs.as !== "a"}>{local.children}</Show>
+      <Show when={restAs.as === "a"}>
+        <A href={restAs.href}>
+          <Show when={restAs.imgSrc}>
+            <img src={restAs.imgSrc} class={local.class} />
+          </Show>
+          <Show when={!restAs.imgSrc}>{local.children}</Show>
+        </A>
+      </Show>
+      <Show when={local.withArrow}>
+        <NavigationMenuPrimitive.Icon
+          class="ml-1 size-3 transition-transform duration-300 data-[expanded]:rotate-180"
+          as="svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m6 9l6 6l6-6"
+          />
+        </NavigationMenuPrimitive.Icon>
+      </Show>
+    </NavigationMenuPrimitive.Trigger>
+  );
 };
 
 type navigationMenuContentProps<T extends ValidComponent = "ul"> = ParentProps<
