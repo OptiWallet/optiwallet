@@ -2,11 +2,7 @@ import { Card, CardContent } from "../ui/card";
 import { Filter } from "../ui/select";
 import { NumberInput } from "../ui/number-field";
 import { RadioButton } from "../ui/radio-group";
-import {
-  useCreditScoreStore,
-  useIncomeStore,
-  useNumberOfCardsStore,
-} from "@/store/filters.store";
+import { useFiltersStore } from "@/store/filters.store";
 
 const creditScoreOptions: string[] = ["100", "200", "300", "400", "500"];
 
@@ -19,11 +15,11 @@ const cardTypes: string[] = [
   "Diners Club",
 ];
 
-const CreditScore = () => {
-  const update = useCreditScoreStore((state) => state.update);
+const setFilter = useFiltersStore((state) => state.setFilter);
 
+const CreditScore = () => {
   const setCreditScore = (val: number) => {
-    update(val);
+    setFilter("creditScore", val);
   };
 
   return (
@@ -36,10 +32,8 @@ const CreditScore = () => {
 };
 
 const Income = () => {
-  const update = useIncomeStore((state) => state.update);
-
   const setIncome = (val: number) => {
-    update(val);
+    setFilter("income", val);
   };
 
   return (
@@ -48,10 +42,8 @@ const Income = () => {
 };
 
 const NumberOfCards = () => {
-  const update = useNumberOfCardsStore((state) => state.update);
-
   const setNumberOfCards = (val: number) => {
-    update(val);
+    setFilter("numberOfCards", val);
   };
 
   return (
