@@ -1,21 +1,20 @@
 import logo from "@/assets/logo.svg";
 import theme from "@/assets/theme.svg";
-import { NavigationMenu } from "@kobalte/core/navigation-menu";
-import {
-  NavigationMenuItem,
-  NavigationMenuTrigger,
-} from "./ui/navigation-menu";
+import { useIsMobile } from "@/store/window.store";
 import { DropdownMenu } from "@kobalte/core/dropdown-menu";
-import { createSignal, onCleanup, onMount } from "solid-js";
+import { NavigationMenu } from "@kobalte/core/navigation-menu";
+import { useNavigate } from "@solidjs/router";
+import { FiMenu } from "solid-icons/fi";
+import { IoSettingsOutline } from "solid-icons/io";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useNavigate } from "@solidjs/router";
-import { FiMenu } from "solid-icons/fi";
-import { IoSettingsOutline } from "solid-icons/io";
-import { useDimensionsStore, useIsMobile } from "@/store/window.store";
+import {
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+} from "./ui/navigation-menu";
 
 export interface NavBarProps {
   loggedIn?: boolean;
