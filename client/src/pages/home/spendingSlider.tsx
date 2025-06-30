@@ -1,7 +1,7 @@
 import { Spending, useSpendingStore } from "@/store/spending.store";
 import { Slider } from "../../components/ui/tw-slider";
 
-export interface SliderProps {
+export interface SpendingSliderProps {
   min?: number;
   max?: number;
   value?: number;
@@ -9,7 +9,7 @@ export interface SliderProps {
   label?: string;
 }
 
-export const SpendingSlider = (props: SliderProps) => {
+export const SpendingSlider = (props: SpendingSliderProps) => {
   const { min = 0, max = 5000, value = 0, step = 50, label } = props;
   const spendingLabel = label as keyof Spending;
   const setSpending = useSpendingStore((state) => state.setSpending);

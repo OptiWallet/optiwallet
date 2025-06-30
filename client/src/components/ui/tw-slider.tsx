@@ -1,6 +1,6 @@
 import { createSignal, Show } from "solid-js";
 
-export interface SimpleSliderProps {
+export interface SliderProps {
   min?: number;
   max?: number;
   value?: number;
@@ -10,7 +10,7 @@ export interface SimpleSliderProps {
   onInput?: (value: number) => void;
 }
 
-export const Slider = (props: SimpleSliderProps) => {
+export const Slider = (props: SliderProps) => {
   const {
     min = 0,
     max = 5000,
@@ -60,7 +60,7 @@ export const Slider = (props: SimpleSliderProps) => {
     <div>
       <div class="flex items-center justify-between">
         <label
-          for="simple-slider-range"
+          for="slider-range"
           class="block mb-1 text-sm font-medium text-[var(--foreground)] dark:text-white"
         >
           {label}
@@ -98,7 +98,7 @@ export const Slider = (props: SimpleSliderProps) => {
           style={{ width: filledTrackPercent() + "%" }}
         />
         <input
-          id="simple-slider-range"
+          id="slider-range"
           type="range"
           min={min}
           max={max}
