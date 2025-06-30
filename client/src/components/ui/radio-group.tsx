@@ -39,7 +39,6 @@ export const RadioGroupItemControl = <T extends ValidComponent = "div">(
 };
 
 export const RadioButton = (props: { radioGroupItems: string[] }) => {
-  console.log("RadioGroupItems", props.radioGroupItems);
   return (
     <RadioGroup class="flex gap-2">
       <For each={props.radioGroupItems}>
