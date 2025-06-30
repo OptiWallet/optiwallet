@@ -1,8 +1,8 @@
-import { Slider } from "@/components/ui/tw-slider";
+import { SpendingSlider } from "@/pages/home/spendingSlider";
 import { For } from "solid-js";
 
 const getSlider = (label: string) => {
-  return <Slider step={50} max={5000} min={0} label={label} />;
+  return <SpendingSlider step={50} max={5000} min={0} label={label} />;
 };
 
 export const categories = [

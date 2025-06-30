@@ -17,11 +17,11 @@ export const useSpendingStore = createWithStore<SpendingState>()(
   persist(
     (set, get) => ({
       spending: {
-        Groceries: 0,
-        Gas: 0,
-        Restaurants: 0,
-        Bills: 0,
-        Other: 0,
+        Groceries: 300,
+        Gas: 100,
+        Restaurants: 100,
+        Bills: 200,
+        Other: 500,
       },
       setSpending: (key, value) =>
         set({
