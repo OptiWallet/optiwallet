@@ -1,0 +1,130 @@
+import { createSignal, Show } from "solid-js";
+
+export interface SliderProps {
+  min?: number;
+  max?: number;
+  value?: number;
+  step?: number;
+  label?: string;
+}
+
+export const Slider = (props: SliderProps) => {
+  const { min = 0, max = 5000, value = 0, step = 50, label } = props;
+  const [currentValue, setCurrentValue] = createSignal(value);
+  const [inputMode, setInputMode] = createSignal(false);
+  const handleInputChange = (e: KeyboardEvent) => {
+    const t = e.target as HTMLInputElement;
+    if (parseInt(t.value) < parseInt(t.min)) {
+      t.value = t.min;
+    }
+    if (parseInt(t.value) > parseInt(t.max)) {
+      t.value = t.max;
+    }
+    if (e.key === "Enter") {
+      setInputMode(false);
+      setCurrentValue(Number(t.value));
+    }
+  };
+
+  const handleBlur = (e: FocusEvent) => {
+    const t = e.target as HTMLInputElement;
+    if (parseInt(t.value) < parseInt(t.min)) {
+      t.value = t.min;
+    }
+    if (parseInt(t.value) > parseInt(t.max)) {
+      t.value = t.max;
+    }
+    setInputMode(false);
+    setCurrentValue(Number(t.value));
+  };
+
+  const filledTrackPercent = () => (currentValue() - min) / (max - min) * 100;
+
+  return (
+    <>
+      <div>
+        <div class="flex items-center justify-between">
+          <label
+            for="default-range"
+            class="block mb-1 text-sm font-medium text-[var(--foreground)] dark:text-white"
+          >
+            {label}
+          </label>
+          <Show when={inputMode()}>
+            <span class="block mb-1 text-sm font-medium text-[var(--foreground)] dark:text-white">
+              $
+              <input
+                type="number"
+                max={max}
+                min={min}
+                value={currentValue()}
+                class="border-b-1 focus:border-b-1 focus:outline-none focus:ring-0 w-12 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                onKeyDown={handleInputChange}
+                onBlur={handleBlur}
+              />
+            </span>
+          </Show>
+          <Show when={!inputMode()}>
+            <span class="block mb-1 text-sm font-medium text-[var(--foreground)] dark:text-white" onClick={() => setInputMode(true)}>${currentValue()}</span>
+          </Show>
+        </div>
+        <div class="relative w-full h-6 mt-1 mb-2 flex items-center">
+          {/* Track background */}
+          <div class="absolute h-2 w-full rounded-lg bg-gray-200 dark:bg-gray-700 top-1/2 left-0 z-0 transform -translate-y-1/2" />
+          <div
+            class="absolute h-2 rounded-lg bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] top-1/2 left-0 z-0 transform -translate-y-1/2 transition-[width] duration-0"
+            style={{ width: filledTrackPercent() + "%" }}
+          />
+          <input
+            id="default-range"
+            type="range"
+            min={min}
+            max={max}
+            disabled={inputMode()}
+            value={currentValue()}
+            step={step}
+            onInput={(e) => setCurrentValue(() => Number(e.target.value))}
+            class="w-full h-6 bg-transparent appearance-none cursor-pointer relative z-10
+              [&::-webkit-slider-thumb]:h-5
+              [&::-webkit-slider-thumb]:w-5
+              [&::-webkit-slider-thumb]:rounded-full
+              [&::-webkit-slider-thumb]:bg-[var(--primary-foreground)]
+              [&::-webkit-slider-thumb]:border-2
+              [&::-webkit-slider-thumb]:drop-shadow-sm
+              [&::-webkit-slider-thumb]:border-white
+              [&::-webkit-slider-thumb]:shadow-lg
+              [&::-webkit-slider-thumb]:transition-all
+              [&::-webkit-slider-thumb]:duration-200
+              focus:[&::-webkit-slider-thumb]:ring-2
+              focus:[&::-webkit-slider-thumb]:ring-[var(--ring)]
+              [&::-webkit-slider-thumb]:appearance-none
+              [&::-moz-range-thumb]:h-5
+              [&::-moz-range-thumb]:w-5
+              [&::-moz-range-thumb]:rounded-full
+              [&::-moz-range-thumb]:bg-[var(--primary-foreground)]
+              [&::-moz-range-thumb]:border-2
+              [&::-moz-range-thumb]:border-white
+              [&::-moz-range-thumb]:shadow-lg
+              [&::-moz-range-thumb]:transition-all
+              [&::-moz-range-thumb]:duration-200
+              focus:[&::-moz-range-thumb]:ring-2
+              focus:[&::-moz-range-thumb]:ring-[var(--ring)]
+              [&::-ms-thumb]:h-5
+              [&::-ms-thumb]:w-5
+              [&::-ms-thumb]:rounded-full
+              [&::-ms-thumb]:bg-[var(--primary-foreground)]
+              [&::-ms-thumb]:border-2
+              [&::-ms-thumb]:border-white
+              [&::-ms-thumb]:shadow-lg
+              [&::-ms-thumb]:transition-all
+              [&::-ms-thumb]:duration-200
+              focus:[&::-ms-thumb]:ring-2
+              focus:[&::-ms-thumb]:ring-[var(--ring)]
+              "
+            style={{ position: "absolute", top: 0, left: 0, height: "100%" }}
+          />
+        </div>
+      </div>
+    </>
+  );
+};
