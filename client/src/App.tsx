@@ -8,7 +8,7 @@ import { Login } from "./pages/login/login";
 const Header = (props: ComponentProps<ValidComponent>) => (
   <>
     <NavBar />
-    <div class="mx-auto max-w-5xl h-screen p-4 flex flex-col gap-3 bg-zinc-100 dark:bg-zinc-900">
+    <div class="mx-auto max-w-6xl h-screen p-4 flex flex-col gap-3 bg-zinc-100 dark:bg-zinc-900">
       {props.children}
     </div>
   </>
