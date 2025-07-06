@@ -15,6 +15,7 @@ import {
 import { useNavigate } from "@solidjs/router";
 import { FiMenu } from "solid-icons/fi";
 import { IoSettingsOutline } from "solid-icons/io";
+import { useDimensionsStore, useIsMobile } from "@/store/window.store";
 
 export interface NavBarProps {
   loggedIn?: boolean;
@@ -25,7 +26,7 @@ const NavBarLargeScreen = (props: NavBarProps) => {
 
   return (
     <>
-      <div class="flex justify-between bg-background sticky top-0 px-2 drop-shadow-md">
+      <div class="flex justify-between bg-background sticky top-0 px-2 drop-shadow-md z-50">
         <NavigationMenu class={"flex items-center h-14"}>
           <NavigationMenuItem>
             <NavigationMenuTrigger
@@ -94,7 +95,7 @@ const NavBarMobile = (props: NavBarProps) => {
 
   return (
     <>
-      <div class="flex justify-between bg-background sticky top-0 px-2 drop-shadow-md">
+      <div class="flex justify-between bg-background sticky top-0 px-2 drop-shadow-md z-50">
         {/* Left: burger menu */}
         <DropdownMenu>
           <DropdownMenuTrigger class="h-11 w-11 p-0 mt-1">
@@ -144,15 +145,7 @@ const NavBarMobile = (props: NavBarProps) => {
 
 export const NavBar = (props: NavBarProps) => {
   const { loggedIn = false } = props;
-  const [isMobile, setIsMobile] = createSignal(false);
-
-  onMount(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    onCleanup(() => window.removeEventListener("resize", checkMobile));
-  });
-
+  const isMobile = useIsMobile();
   return (
     <>
       {isMobile() ? (

@@ -1,4 +1,5 @@
-import { createSignal, Show } from "solid-js";
+import { Spending, useSpendingStore } from "@/store/spending.store";
+import { createEffect, createSignal, Show } from "solid-js";
 
 export interface SliderProps {
   min?: number;
@@ -10,8 +11,18 @@ export interface SliderProps {
 
 export const Slider = (props: SliderProps) => {
   const { min = 0, max = 5000, value = 0, step = 50, label } = props;
-  const [currentValue, setCurrentValue] = createSignal(value);
+  const spendingLabel = label as keyof Spending;
   const [inputMode, setInputMode] = createSignal(false);
+  const setSpending = useSpendingStore((state) => state.setSpending);
+  const spending = useSpendingStore<Spending>((state) => state.spending);
+  const initialSpendingValue = (spending[spendingLabel] as number) || value;
+  const [currentValue, setCurrentValue] =
+    createSignal<number>(initialSpendingValue);
+
+  createEffect(() => {
+    setSpending(spendingLabel, Number(currentValue()));
+  });
+
   const handleInputChange = (e: KeyboardEvent) => {
     const t = e.target as HTMLInputElement;
     if (parseInt(t.value) < parseInt(t.min)) {
@@ -38,7 +49,12 @@ export const Slider = (props: SliderProps) => {
     setCurrentValue(Number(t.value));
   };
 
-  const filledTrackPercent = () => (currentValue() - min) / (max - min) * 100;
+  const onInputChange = (e: InputEvent) => {
+    const t = e.target as HTMLInputElement;
+    setCurrentValue(() => Number(t.value));
+  };
+
+  const filledTrackPercent = () => ((currentValue() - min) / (max - min)) * 100;
 
   return (
     <>
@@ -65,7 +81,12 @@ export const Slider = (props: SliderProps) => {
             </span>
           </Show>
           <Show when={!inputMode()}>
-            <span class="block mb-1 text-sm font-medium text-[var(--foreground)] dark:text-white" onClick={() => setInputMode(true)}>${currentValue()}</span>
+            <span
+              class="block mb-1 text-sm font-medium text-[var(--foreground)] dark:text-white"
+              onClick={() => setInputMode(true)}
+            >
+              ${currentValue()}
+            </span>
           </Show>
         </div>
         <div class="relative w-full h-6 mt-1 mb-2 flex items-center">
@@ -83,7 +104,7 @@ export const Slider = (props: SliderProps) => {
             disabled={inputMode()}
             value={currentValue()}
             step={step}
-            onInput={(e) => setCurrentValue(() => Number(e.target.value))}
+            onInput={onInputChange}
             class="w-full h-6 bg-transparent appearance-none cursor-pointer relative z-10
               [&::-webkit-slider-thumb]:h-5
               [&::-webkit-slider-thumb]:w-5
