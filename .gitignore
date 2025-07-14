@@ -19,6 +19,8 @@ node_modules
 .classpath
 *.launch
 .settings/
+dist
+.vscode
 
 # Temp
 gitignore
@@ -26,3 +28,4 @@ gitignore
 # System Files
 .DS_Store
 Thumbs.db
+.env
