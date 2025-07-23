@@ -1,7 +1,7 @@
-import { Elysia } from "elysia";
-import { creditCardsRoutes } from "./routes/creditCards";
 import swagger from "@elysiajs/swagger";
+import { Elysia } from "elysia";
 import { helmet } from "elysia-helmet";
+import { creditCardsRoutes } from "./routes/creditCards.route";
 
 const app = new Elysia().use(helmet());
 
