@@ -39,4 +39,4 @@ export enum Programs {
   AMERICAN_EXPRESS_MEMBERSHIP_REWARDS = "american_express_membership_rewards",
 }
 
-export const DEFAULT_CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
+export const DEFAULT_CACHE_TTL = 5 * 60 * 1000; // MS
