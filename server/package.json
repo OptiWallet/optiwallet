@@ -5,7 +5,7 @@
     "test": "bun test",
     "dev": "bun lint && bun test && bun run --watch src/index.ts",
     "start": "bun run src/index.ts",
-    "lint": "bun run eslint . --ext .ts,.js",
+    "lint": "bun run eslint --fix . --ext .ts,.js",
     "build": "bun run drizzle-kit generate && bun lint && bun test && bun run tsc",
     "push-db": "bunx drizzle-kit push"
   },

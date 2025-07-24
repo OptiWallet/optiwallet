@@ -4,7 +4,7 @@ import { CreditCardIssuer, CreditCardNetwork } from "../repositories/constants";
 const networks: string = Object.keys(CreditCardNetwork).join("|");
 const issuers: string = Object.keys(CreditCardIssuer).join("|");
 
-export const creditCardSchema = t.Object({
+export const creditCardValidationSchema = t.Object({
   id: t.Integer(),
   name: t.String({ minLength: 3 }),
   issuer: t.String({ pattern: `^(${issuers})$` }),
@@ -13,4 +13,4 @@ export const creditCardSchema = t.Object({
   minimumCreditScore: t.Optional(t.Integer()),
 });
 
-export type CreditCardDTO = Static<typeof creditCardSchema>;
+export type CreditCardDTO = Static<typeof creditCardValidationSchema>;

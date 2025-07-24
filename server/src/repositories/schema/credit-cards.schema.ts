@@ -1,4 +1,4 @@
-import { InferSelectModel, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import {
   check,
   index,
@@ -34,5 +34,3 @@ export const creditCards = pgTable(
 );
 
 export type CreditCardTable = typeof creditCards;
-
-export type CreditCardDB = InferSelectModel<typeof creditCards>;

@@ -11,24 +11,7 @@ export const getFilterConditions = <T extends Record<string, any>>(
   }
   return and(
     ...filters
-      .map((filter: Filter<T>) => {
-        // if (filter.operator === "eq") {
-        return eq(table[filter.field], filter.value);
-        // } else if (filter.operator === "ne") {
-        //   return not(eq(table[filter.field], filter.value));
-        // } else if (filter.operator === "gt") {
-        //   return gt(table[filter.field], filter.value);
-        // } else if (filter.operator === "lt") {
-        //   return lt(table[filter.field], filter.value);
-        // } else if (filter.operator === "gte") {
-        //   return gte(table[filter.field], filter.value);
-        // } else if (filter.operator === "lte") {
-        //   return lte(table[filter.field], filter.value);
-        // } else if (filter.operator === "like") {
-        //   return like(table[filter.field], `%${filter.value}%`);
-        // }
-        // return undefined;
-      })
+      .map((filter: Filter<T>) => eq(table[filter.field], filter.value))
       .filter(
         (clause): clause is Exclude<typeof clause, undefined> =>
           clause !== undefined
