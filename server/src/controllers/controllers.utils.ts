@@ -1,4 +1,4 @@
-import { Filter, Sort, SortDirection } from "../repositories/db/types";
+import { type Filter, type Sort, SortDirection } from "../repositories/db/types";
 
 export const extractFilters = <T>(
   query: Record<string, string | number>

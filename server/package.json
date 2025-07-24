@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "test": "bun test",
-    "dev": "bun lint && bun test && bun run --watch src/index.ts",
+    "dev": "bun i && bun run tsc && bun lint && bun test && bun run --watch src/index.ts",
     "start": "bun run src/index.ts",
     "lint": "bun run eslint --fix . --ext .ts,.js",
     "build": "bun run drizzle-kit generate && bun lint && bun test && bun run tsc",
@@ -18,10 +18,10 @@
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "@types/bun": "^1.2.19",
-    "bun-types": "latest",
     "drizzle-kit": "^0.31.4",
     "eslint": "^9.31.0",
-    "typescript-eslint": "^8.37.0"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
   },
   "module": "src/index.js"
 }

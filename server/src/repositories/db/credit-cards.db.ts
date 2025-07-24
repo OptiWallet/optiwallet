@@ -1,11 +1,9 @@
+import type { CreditCardDB } from "../../models/credit-cards.model";
 import { db } from "../db";
-import type {
-  CreditCardDB,
-  CreditCardTable,
-} from "../schema/credit-cards.schema";
+import type { CreditCardTable } from "../schema/credit-cards.schema";
 import * as creditCardSchema from "../schema/credit-cards.schema";
 import { getFilterConditions, getSortExpression } from "./db.utils";
-import { Filter, Sort } from "./types";
+import type { Filter, Sort } from "./types";
 const { creditCards } = creditCardSchema;
 
 export const listCreditCards = async (

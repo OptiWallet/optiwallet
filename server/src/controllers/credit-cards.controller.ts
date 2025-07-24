@@ -1,9 +1,9 @@
-import { CreditCardDTO } from "../dto/credit-cards.dto";
+import type { CreditCardDTO } from "../dto/credit-cards.dto";
 import { toCreditCardDTO } from "../mappers/credit-cards.mapper";
-import { CreditCardDB } from "../models/credit-cards.model";
+import type { CreditCardDB } from "../models/credit-cards.model";
 import { getFromCache } from "../repositories/cache";
 import { listCreditCards } from "../repositories/db/credit-cards.db";
-import { CreditCardTable } from "../repositories/schema/credit-cards.schema";
+import type { CreditCardTable } from "../repositories/schema/credit-cards.schema";
 import { extractFilters, extractSort } from "./controllers.utils";
 
 export const getCreditCards = async (

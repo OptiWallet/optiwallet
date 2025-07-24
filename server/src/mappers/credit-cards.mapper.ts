@@ -1,5 +1,5 @@
-import { CreditCardDTO } from "../dto/credit-cards.dto";
-import { CreditCardDB } from "../repositories/schema/credit-cards.schema";
+import type { CreditCardDTO } from "../dto/credit-cards.dto";
+import type { CreditCardDB } from "../models/credit-cards.model";
 
 export const toCreditCardDTO = (creditCard: CreditCardDB): CreditCardDTO => {
   return {
@@ -21,4 +21,4 @@ export const toCreditCardDB = (creditCard: CreditCardDTO): CreditCardDB => {
     minimumIncome: creditCard.minimumIncome,
     minimumCreditScore: creditCard.minimumCreditScore,
   };
-}
+};

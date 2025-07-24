@@ -1,4 +1,4 @@
-import { Static, t } from "elysia";
+import { type Static, t } from "elysia";
 import { CreditCardIssuer, CreditCardNetwork } from "../repositories/constants";
 
 const networks: string = Object.keys(CreditCardNetwork).join("|");
@@ -9,8 +9,8 @@ export const creditCardValidationSchema = t.Object({
   name: t.String({ minLength: 3 }),
   issuer: t.String({ pattern: `^(${issuers})$` }),
   network: t.String({ pattern: `^(${networks})$` }),
-  minimumIncome: t.Optional(t.Integer()),
-  minimumCreditScore: t.Optional(t.Integer()),
+  minimumIncome: t.Nullable(t.Integer()),
+  minimumCreditScore: t.Nullable(t.Integer()),
 });
 
 export type CreditCardDTO = Static<typeof creditCardValidationSchema>;
