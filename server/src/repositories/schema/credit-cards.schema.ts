@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   check,
   index,
@@ -6,10 +7,7 @@ import {
   serial,
   text,
 } from "drizzle-orm/pg-core";
-import { t, TSchema } from "elysia";
 import { CreditCardIssuer, CreditCardNetwork } from "../constants";
-import { sql } from "drizzle-orm";
-import { Static } from "elysia";
 
 const issuerList = Object.values(CreditCardIssuer)
   .map((v) => `'${v}'`)
@@ -18,7 +16,7 @@ const networkList = Object.values(CreditCardNetwork)
   .map((v) => `'${v}'`)
   .join(",");
 
-export const creditCardsTable = pgTable(
+export const creditCards = pgTable(
   "creditCards",
   {
     id: serial("id").primaryKey(),
@@ -35,16 +33,4 @@ export const creditCardsTable = pgTable(
   ]
 );
 
-const networks: string = Object.keys(CreditCardNetwork).join("|");
-const issuers: string = Object.keys(CreditCardIssuer).join("|");
-
-export const creditCardSchema: TSchema = t.Object({
-  id: t.Optional(t.Integer()),
-  name: t.String({ minLength: 3 }),
-  issuer: t.String({ pattern: `^(${issuers})$` }),
-  network: t.String({ pattern: `^(${networks})$` }),
-  minimumIncome: t.Optional(t.Integer()),
-  minimumCreditScore: t.Optional(t.Integer()),
-});
-
-export type CreditCard = Static<typeof creditCardSchema>;
+export type CreditCardTable = typeof creditCards;

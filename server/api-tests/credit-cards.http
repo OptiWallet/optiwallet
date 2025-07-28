@@ -1,0 +1,27 @@
+### List credit cards
+GET http://localhost:3000/api/credit-cards?sortField=name&sortOrder=asc&issuer=american_express
+
+### Get credit card by ID
+GET http://localhost:3000/api/credit-cards/123
+
+### Delete credit card by ID
+DELETE http://localhost:3000/api/credit-cards/123
+
+### Update credit card by ID
+PATCH  http://localhost:3000/api/credit-cards/123 
+Content-Type: application/json
+
+{
+    "minimumIncome": 400
+}
+
+### Add credit card
+POST  http://localhost:3000/api/credit-cards 
+Content-Type: application/json
+
+{
+    "name": "Visa Platinum",
+    "issuer": "BMO",
+    "network": "VISA",
+    "minimumIncome": 400
+}
