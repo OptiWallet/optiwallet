@@ -4,7 +4,7 @@ import {
   index,
   integer,
   pgTable,
-  serial,
+  uuid,
   text,
 } from "drizzle-orm/pg-core";
 import { CreditCardIssuer, CreditCardNetwork } from "../constants";
@@ -19,7 +19,7 @@ const networkList = Object.values(CreditCardNetwork)
 export const creditCards = pgTable(
   "creditCards",
   {
-    id: serial("id").primaryKey(),
+    id: uuid("id").primaryKey(),
     name: text("name").notNull(),
     issuer: text("issuer").notNull(),
     network: text("network").notNull(),

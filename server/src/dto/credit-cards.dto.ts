@@ -5,7 +5,7 @@ const networks: string = Object.keys(CreditCardNetwork).join("|");
 const issuers: string = Object.keys(CreditCardIssuer).join("|");
 
 export const creditCardValidationSchema = t.Object({
-  id: t.Integer({ minimum: 1 }),
+  id: t.String(),
   name: t.String({ minLength: 3 }),
   issuer: t.String({ pattern: `^(${issuers})$` }),
   network: t.String({ pattern: `^(${networks})$` }),
