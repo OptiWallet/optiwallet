@@ -2,7 +2,10 @@ import type { CreditCardDTO } from "../dto/credit-cards.dto";
 import { toCreditCardDTO } from "../mappers/credit-cards.mapper";
 import type { CreditCardDB } from "../models/credit-cards.model";
 import { getFromCache } from "../repositories/cache";
-import { listCreditCards } from "../repositories/db/credit-cards.db";
+import {
+  listCreditCards,
+  getCreditCardFromDb,
+} from "../repositories/db/credit-cards.db";
 import type { CreditCardTable } from "../repositories/schema/credit-cards.schema";
 import { extractFilters, extractSort } from "./controllers.utils";
 
@@ -25,10 +28,20 @@ export const getCreditCards = async (
   return creditCards.map((creditCard) => toCreditCardDTO(creditCard));
 };
 
-export const getCreditCard = (id: string) => `get credit card with id ${id}`;
+export const getCreditCard = async (id: number) => {
+  const cacheKey = `creditCard[${id}]`;
+  const creditCard: CreditCardDB = await getFromCache(
+    cacheKey,
+    async () => await getCreditCardFromDb(id)
+  );
+  return toCreditCardDTO(creditCard);
+};
+
 export const createCreditCard = (creditCard: CreditCardDTO) =>
   `create credit card with data ${JSON.stringify(creditCard)}`;
-export const updateCreditCard = (id: string, creditCard: Partial<CreditCardDTO>) =>
-  `update credit card with id ${id} with data ${JSON.stringify(creditCard)}`;
+export const updateCreditCard = (
+  id: string,
+  creditCard: Partial<CreditCardDTO>
+) => `update credit card with id ${id} with data ${JSON.stringify(creditCard)}`;
 export const deleteCreditCard = (id: string) =>
   `delete credit card with id ${id}`;
