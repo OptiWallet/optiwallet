@@ -1,11 +1,11 @@
 import { type Static, t } from "elysia";
 
 export const cashbackValidationSchema = t.Object({
-  id: t.String(),
+  id: t.String({ format: 'uuid' }),
   category: t.String(),
   value: t.Number(),
-  credit_card_id: t.String(),
-  program_id: t.String(),
+  creditCardId: t.String({ format: 'uuid' }),
+  programId: t.String({ format: 'uuid' }),
 });
 
 export type CashbackDTO = Static<typeof cashbackValidationSchema>;

@@ -4,9 +4,9 @@ import { Programs } from "../repositories/constants";
 const programs: string = Object.keys(Programs).join("|");
 
 export const programsValidationSchema = t.Object({
-  id: t.String(),
+  id: t.String({ format: "uuid" }),
   program: t.String({ pattern: `^(${programs})$` }),
-  point_cash_ratio: t.Number(),
+  pointCashRatio: t.Number(),
 });
 
 export type ProgramsDTO = Static<typeof programsValidationSchema>;
