@@ -1,15 +1,20 @@
 import type { CreditCardDTO } from "../dto/credit-cards.dto";
-import { toCreditCardDTO } from "../mappers/credit-cards.mapper";
-import type { CreditCardDB } from "../models/credit-cards.model";
+import {
+  toCreditCardDTO,
+  toPartialCreditCardModel,
+} from "../mappers/credit-cards.mapper";
+import type { CreditCardModel } from "../models/credit-cards.model";
 import { getFromCache } from "../repositories/cache";
 import {
-  listCreditCards,
+  deleteCreditCard,
   getCreditCardFromDb,
+  listCreditCards,
+  updateCreditCard,
 } from "../repositories/db/credit-cards.db";
 import type { CreditCardTable } from "../repositories/schema/credit-cards.schema";
 import { extractFilters, extractSort } from "./controllers.utils";
 
-export const getCreditCards = async (
+export const getCreditCardsHandler = async (
   query: Record<string, string | number>
 ): Promise<CreditCardDTO[]> => {
   const sort = extractSort(query);
@@ -21,27 +26,34 @@ export const getCreditCards = async (
   const cacheKey = `creditCards[${[filtersString, sortString]
     .filter((x) => x)
     .join("|")}]`;
-  const creditCards: CreditCardDB[] = await getFromCache(
+  const creditCards: CreditCardModel[] = await getFromCache(
     cacheKey,
     async () => await listCreditCards(filters, sort)
   );
   return creditCards.map((creditCard) => toCreditCardDTO(creditCard));
 };
 
-export const getCreditCard = async (id: number) => {
+export const getCreditCardHandler = async (id: number) => {
   const cacheKey = `creditCard[${id}]`;
-  const creditCard: CreditCardDB = await getFromCache(
+  const creditCard: CreditCardModel = await getFromCache(
     cacheKey,
     async () => await getCreditCardFromDb(id)
   );
   return toCreditCardDTO(creditCard);
 };
 
-export const createCreditCard = (creditCard: CreditCardDTO) =>
+export const createCreditCardHandler = (creditCard: CreditCardDTO) =>
   `create credit card with data ${JSON.stringify(creditCard)}`;
-export const updateCreditCard = (
-  id: string,
+export const updateCreditCardHandler = async (
+  id: number,
   creditCard: Partial<CreditCardDTO>
-) => `update credit card with id ${id} with data ${JSON.stringify(creditCard)}`;
-export const deleteCreditCard = (id: string) =>
-  `delete credit card with id ${id}`;
+) => {
+  await updateCreditCard(id, toPartialCreditCardModel(creditCard));
+  return `update credit card with id ${id} with data ${JSON.stringify(
+    creditCard
+  )}`;
+};
+export const deleteCreditCardHandler = async (id: number) => {
+  await deleteCreditCard(id);
+  return `delete credit card with id ${id}`;
+};
