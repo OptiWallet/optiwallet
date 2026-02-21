@@ -11,7 +11,7 @@ export const SpendingChart = () => {
           spending[key as keyof typeof Spending] > 0 && categories.includes(key)
       )
       .map((key) => (spending[key as keyof typeof Spending] as number) || 0);
-  const labels = () =>
+  const labels: () => string[] = () =>
     Object.keys(spending).filter(
       (key) =>
         spending[key as keyof typeof Spending] > 0 && categories.includes(key)

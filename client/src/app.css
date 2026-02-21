@@ -201,3 +201,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.chart-legend {
+  color: hsl(var(--foreground));
+  font-size: 0.875rem; /* Adjust font size for better readability */
+  font-weight: 500; /* Make text slightly bolder */
+}
