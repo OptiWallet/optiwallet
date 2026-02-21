@@ -7,13 +7,29 @@ mock.module("../mappers/credit-cards.mapper.ts", () => {
   };
 });
 
+const testId = "550e8400-e29b-41d4-a716-446655440000";
+
 mock.module("../repositories/db/credit-cards.db.ts", () => ({
   listCreditCards: async () => [
-    { id: 1, name: "Test Card" } as CreditCardModel,
+    { 
+      id: testId, 
+      name: "Test Card",
+      issuer: "td",
+      network: "visa",
+      minimumIncome: null,
+      minimumCreditScore: null
+    } as CreditCardModel,
   ],
-  getCreditCardFromDb: async (id: number) =>
-    id === 1
-      ? ({ id: 1, name: "Test Card" } as CreditCardModel)
+  getCreditCardFromDb: async (id: string) =>
+    id === testId
+      ? ({ 
+          id: testId, 
+          name: "Test Card",
+          issuer: "td",
+          network: "visa",
+          minimumIncome: null,
+          minimumCreditScore: null
+        } as CreditCardModel)
       : (() => {
           throw new Error(`Credit card with id ${id} not found`);
         })(),
@@ -30,23 +46,18 @@ describe("credit-card.controller", () => {
     it("returns a list of credit cards", async () => {
       const result = await controller.getCreditCardsHandler({});
       expect(Array.isArray(result)).toBe(true);
-      expect((result[0] as CreditCardModel)?.id).toBe(1);
+      expect((result[0] as CreditCardModel)?.id).toBe(testId);
     });
   });
 
   describe("getCreditCard", () => {
     it("returns a credit card DTO for valid id", async () => {
-      const result = await controller.getCreditCardHandler(1);
-      expect((result as CreditCardModel).id).toBe(1);
-    });
-
-    it("throws for invalid id", async () => {
-      await expect(controller.getCreditCardHandler(NaN)).rejects.toThrow();
-      await expect(controller.getCreditCardHandler(0)).rejects.toThrow();
+      const result = await controller.getCreditCardHandler(testId);
+      expect((result as CreditCardModel).id).toBe(testId);
     });
 
     it("throws if card not found", async () => {
-      await expect(controller.getCreditCardHandler(999)).rejects.toThrow();
+      await expect(controller.getCreditCardHandler("550e8400-e29b-41d4-a716-446655440999")).rejects.toThrow();
     });
   });
 });
