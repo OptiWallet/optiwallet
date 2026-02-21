@@ -4,28 +4,29 @@
     "": {
       "name": "vite-template-solid",
       "dependencies": {
-        "@kobalte/core": "^0.13.10",
-        "@solidjs/router": "^0.15.3",
+        "@kobalte/core": "^0.13.11",
+        "@solidjs/router": "^0.15.4",
+        "@tanstack/solid-query": "^5.90.23",
         "apexcharts": "^4.7.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "solid-apexcharts": "^0.4.0",
-        "solid-icons": "^1.1.0",
-        "solid-js": "^1.9.7",
+        "solid-icons": "^1.2.0",
+        "solid-js": "^1.9.11",
         "solid-zustand": "^1.8.1",
-        "tailwind-merge": "^3.3.1",
+        "tailwind-merge": "^3.5.0",
         "tailwindcss-animate": "^1.0.7",
-        "zustand": "^5.0.6",
+        "zustand": "^5.0.11",
       },
       "devDependencies": {
         "@solidjs/testing-library": "^0.8.10",
-        "@tailwindcss/vite": "^4.1.10",
-        "@testing-library/jest-dom": "^6.6.3",
+        "@tailwindcss/vite": "^4.2.0",
+        "@testing-library/jest-dom": "^6.9.1",
         "jsdom": "^26.1.0",
-        "tailwindcss": "^4.1.10",
-        "typescript": "^5.8.3",
-        "vite": "^6.3.5",
-        "vite-plugin-solid": "^2.11.6",
+        "tailwindcss": "^4.2.0",
+        "typescript": "^5.9.3",
+        "vite": "^6.4.1",
+        "vite-plugin-solid": "^2.11.10",
         "vitest": "^3.2.4",
       },
     },
@@ -268,6 +269,10 @@
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.2.0", "", { "os": "win32", "cpu": "x64" }, "sha512-CrFadmFoc+z76EV6LPG1jx6XceDsaCG3lFhyLNo/bV9ByPrE+FnBPckXQVP4XRkN76h3Fjt/a+5Er/oA/nCBvQ=="],
 
     "@tailwindcss/vite": ["@tailwindcss/vite@4.2.0", "", { "dependencies": { "@tailwindcss/node": "4.2.0", "@tailwindcss/oxide": "4.2.0", "tailwindcss": "4.2.0" }, "peerDependencies": { "vite": "^5.2.0 || ^6 || ^7" } }, "sha512-da9mFCaHpoOgtQiWtDGIikTrSpUFBtIZCG3jy/u2BGV+l/X1/pbxzmIUxNt6JWm19N3WtGi4KlJdSH/Si83WOA=="],
+
+    "@tanstack/query-core": ["@tanstack/query-core@5.90.20", "", {}, "sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg=="],
+
+    "@tanstack/solid-query": ["@tanstack/solid-query@5.90.23", "", { "dependencies": { "@tanstack/query-core": "5.90.20" }, "peerDependencies": { "solid-js": "^1.6.0" } }, "sha512-pbZc4+Kgm7ktzIuu01R3KOWfazQKgNp4AZvW0RSvv+sNMpYoileUDAkXEcjDJe6RJmb3fVvTR4LlcSL5pxDElQ=="],
 
     "@testing-library/dom": ["@testing-library/dom@10.4.0", "", { "dependencies": { "@babel/code-frame": "^7.10.4", "@babel/runtime": "^7.12.5", "@types/aria-query": "^5.0.1", "aria-query": "5.3.0", "chalk": "^4.1.0", "dom-accessibility-api": "^0.5.9", "lz-string": "^1.5.0", "pretty-format": "^27.0.2" } }, "sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ=="],
 

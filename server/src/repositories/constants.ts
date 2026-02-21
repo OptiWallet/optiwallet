@@ -40,3 +40,15 @@ export enum Programs {
 }
 
 export const DEFAULT_CACHE_TTL = 5 * 60 * 1000; // MS
+
+export enum CashbackCategory {
+  GROCERIES = "groceries",
+  GAS = "gas",
+  DINING = "dining",
+  TRAVEL = "travel",
+  ENTERTAINMENT = "entertainment",
+  DRUGSTORES = "drugstores",
+  TRANSIT = "transit",
+  RECURRING_BILLS = "recurring_bills",
+  EVERYTHING_ELSE = "everything_else",
+}
