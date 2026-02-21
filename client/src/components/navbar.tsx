@@ -1,11 +1,17 @@
 import logo from "@/assets/logo.svg";
 import theme from "@/assets/theme.svg";
-import { useIsMobile } from "@/store/window.store";
+import {
+  isDarkMode,
+  setIsDarkMode,
+  useIsDarkMode,
+  useIsMobile,
+} from "@/store/window.store";
 import { DropdownMenu } from "@kobalte/core/dropdown-menu";
 import { NavigationMenu } from "@kobalte/core/navigation-menu";
 import { useNavigate } from "@solidjs/router";
 import { FiMenu } from "solid-icons/fi";
 import { IoSettingsOutline } from "solid-icons/io";
+import { onMount } from "solid-js";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -20,8 +26,17 @@ export interface NavBarProps {
   loggedIn?: boolean;
 }
 
+const toggleDarkMode = (event: MouseEvent) => {
+  event.stopPropagation();
+  const newMode = !isDarkMode();
+  setIsDarkMode(newMode);
+  document.documentElement.classList.toggle("dark", newMode);
+  localStorage.setItem("theme", newMode ? "dark" : "light");
+};
+
 const NavBarLargeScreen = (props: NavBarProps) => {
   const { loggedIn = false } = props;
+  const isDarkMode = useIsDarkMode();
 
   return (
     <>
@@ -74,13 +89,19 @@ const NavBarLargeScreen = (props: NavBarProps) => {
             )}
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger
-              withArrow={false}
-              as="a"
-              href="/darkmode"
-              imgSrc={theme}
-              class="h-5 w-5 p-0 mt-1"
-            ></NavigationMenuTrigger>
+            <button
+              class="h-11 w-11 p-0 mt-1 flex items-center justify-center"
+              onClick={toggleDarkMode}
+            >
+              <img
+                src={theme}
+                alt="Dark mode"
+                classList={{
+                  "h-15 w-5 bg-red": true,
+                  invert: isDarkMode(),
+                }}
+              />
+            </button>
           </NavigationMenuItem>
         </NavigationMenu>
       </div>
@@ -91,6 +112,7 @@ const NavBarLargeScreen = (props: NavBarProps) => {
 const NavBarMobile = (props: NavBarProps) => {
   const { loggedIn = false } = props;
   const navigate = useNavigate();
+  const isDarkMode = useIsDarkMode();
 
   return (
     <>
@@ -132,15 +154,27 @@ const NavBarMobile = (props: NavBarProps) => {
           </DropdownMenu>
           <button
             class="h-11 w-11 p-0 mt-1 flex items-center justify-center"
-            onClick={() => navigate("/darkmode")}
+            onClick={toggleDarkMode}
           >
-            <img src={theme} alt="Dark mode" class="h-5 w-5" />
+            <img
+              src={theme}
+              alt="Dark mode"
+              classList={{
+                "h-5 w-5": true,
+                invert: isDarkMode(),
+              }}
+            />
           </button>
         </div>
       </div>
     </>
   );
 };
+
+onMount(() => {
+  const isDark = isDarkMode();
+  document.documentElement.classList.toggle("dark", isDark);
+});
 
 export const NavBar = (props: NavBarProps) => {
   const { loggedIn = false } = props;

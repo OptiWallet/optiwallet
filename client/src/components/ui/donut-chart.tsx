@@ -1,7 +1,7 @@
-import { useIsMobile } from "@/store/window.store";
+import { useIsDarkMode, useIsMobile } from "@/store/window.store";
 import { ApexOptions } from "apexcharts";
 import { SolidApexCharts } from "solid-apexcharts";
-import { Accessor, createEffect, createSignal, Show } from "solid-js";
+import { Accessor, createMemo, Show } from "solid-js";
 
 type ChartProps = {
   series: Accessor<number[]>;
@@ -11,58 +11,64 @@ type ChartProps = {
 export const DonutChart = (props: ChartProps) => {
   const { series, labels } = props;
   const isMobile = useIsMobile();
+  const isDarkMode = useIsDarkMode();
 
-  // 1. Use a signal for options
-  const [options, setOptions] = createSignal<ApexOptions>({
-    labels: labels(),
-    legend: {
-      show: Boolean(labels()?.length),
-      showForSingleSeries: true,
-      position: "top"
-    },
-    colors: ["#0EB2FF", "#3083FF", "#9CA4F3", "#5B47FF", "#840EFF"],
-    grid: {
-      padding: { top: 0, right: 0, bottom: 0, left: 0 },
-    },
-    plotOptions: {},
-    dataLabels: {
-      enabled: true,
-      style: {
-        fontSize: isMobile() ? "8px" : "16px",
-        fontWeight: "regular",
-        fontFamily: "Libertinus Math",
-      },
-      background: {
-        padding: 0,
-      },
-      dropShadow: {
-        enabled: true,
-      },
-    },
-    tooltip: {
-      enabled: false,
-    },
-  });
+  const options = createMemo<ApexOptions>(() => {
+    const darkMode = isDarkMode();
+    const mobile = isMobile();
+    const currentLabels = labels();
+    const textColor = darkMode ? "#FFFFFF" : "#000000";
 
-  createEffect(() => {
-    setOptions((prev) => ({
-      ...prev,
-      labels: labels(),
-      legend: { show: Boolean(labels()?.length) },
-      dataLabels: {
-        ...prev.dataLabels,
-        style: {
-          ...prev.dataLabels?.style,
-          fontSize: isMobile() ? "8px" : "16px",
+    const chartColors = ["#0EB2FF", "#3083FF", "#9CA4F3", "#5B47FF", "#840EFF"];
+
+    return {
+      chart: {
+        background: "transparent",
+      },
+      theme: {
+        mode: darkMode ? "dark" : "light",
+      },
+      labels: currentLabels,
+      legend: {
+        show: Boolean(currentLabels?.length),
+        showForSingleSeries: true,
+        position: "top",
+        labels: {
+          colors: textColor,
         },
       },
-    }));
+      colors: chartColors,
+      grid: {
+        padding: { top: 0, right: 0, bottom: 0, left: 0 },
+      },
+      plotOptions: {},
+      dataLabels: {
+        enabled: true,
+        style: {
+          fontSize: mobile ? "8px" : "16px",
+          fontWeight: "regular",
+          fontFamily: "Libertinus Math",
+          colors: ["#FFFFFF"],
+        },
+        background: {
+          padding: 0,
+        },
+        dropShadow: {
+          enabled: true,
+        },
+      },
+      tooltip: {
+        enabled: true,
+        theme: darkMode ? "dark" : "light",
+      },
+    };
   });
 
   return (
     <>
       <Show when={series()?.length > 0}>
         <SolidApexCharts
+          key={isDarkMode() ? "dark" : "light"}
           type="donut"
           width={isMobile() ? "350" : "500"}
           options={options()}
@@ -70,7 +76,7 @@ export const DonutChart = (props: ChartProps) => {
         />
       </Show>
       <Show when={!series()?.length}>
-        <div class={`w-[500px] align-middle`}>
+        <div class="w-125 align-middle">
           <h1 class="text-center">Please update spending</h1>
         </div>
       </Show>

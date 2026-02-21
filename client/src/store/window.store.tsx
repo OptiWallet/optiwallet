@@ -1,4 +1,4 @@
-import { Accessor, onCleanup, onMount } from "solid-js";
+import { Accessor, createSignal } from "solid-js";
 import { createWithSignal } from "solid-zustand";
 
 interface DimensionState {
@@ -12,15 +12,19 @@ const getWindowDimensions = (): DimensionState => ({
 });
 
 export const useDimensionsStore = createWithSignal<DimensionState>()(() =>
-  getWindowDimensions()
+  getWindowDimensions(),
 );
+
 const handleResize = () => {
   useDimensionsStore.setState(getWindowDimensions());
 };
-onMount(() => {
-  window.addEventListener("resize", handleResize);
-});
-onCleanup(() => window.removeEventListener("resize", handleResize));
+
+window.addEventListener("resize", handleResize);
 
 export const useIsMobile: () => Accessor<boolean> = () => () =>
   useDimensionsStore((state) => state.windowWidth)() <= 768;
+
+const savedTheme = localStorage.getItem("theme");
+export const [isDarkMode, setIsDarkMode] = createSignal(savedTheme === "dark");
+
+export const useIsDarkMode: () => Accessor<boolean> = () => isDarkMode;

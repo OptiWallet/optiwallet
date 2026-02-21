@@ -94,8 +94,11 @@ export const Slider = (props: SliderProps) => {
         <div class="absolute h-2 w-full rounded-lg bg-gray-200 dark:bg-gray-700 top-1/2 left-0 z-0 transform -translate-y-1/2" />
         {/* Filled track */}
         <div
-          class="absolute h-2 rounded-lg bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] top-1/2 left-0 z-0 transform -translate-y-1/2 transition-[width] duration-0"
-          style={{ width: filledTrackPercent() + "%" }}
+          class="absolute h-2 rounded-lg top-1/2 left-0 z-0 transform -translate-y-1/2 transition-[width] duration-0"
+          style={{ 
+            width: filledTrackPercent() + "%",
+            background: "linear-gradient(to right, #0EB2FF, #3083FF, #5B47FF)"
+          }}
         />
         <input
           id="slider-range"

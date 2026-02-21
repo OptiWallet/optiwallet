@@ -24,11 +24,14 @@
   --border: hsl(240 5.9% 90%);
   --input: hsl(240 5.9% 90%);
   --ring: hsl(240 10% 3.9%);
-  --chart-1: hsl(12 76% 61%);
-  --chart-2: hsl(173 58% 39%);
-  --chart-3: hsl(197 37% 24%);
-  --chart-4: hsl(43 74% 66%);
-  --chart-5: hsl(27 87% 67%);
+  --chart-1: hsl(195 100% 53%); /* #0EB2FF */
+  --chart-2: hsl(217 100% 59%); /* #3083FF */
+  --chart-3: hsl(235 77% 78%);  /* #9CA4F3 */
+  --chart-4: hsl(247 100% 64%); /* #5B47FF */
+  --chart-5: hsl(269 100% 53%); /* #840EFF */
+  --slider-start: hsl(195 100% 53%); /* Same as chart-1 */
+  --slider-mid: hsl(217 100% 59%);   /* Same as chart-2 */
+  --slider-end: hsl(247 100% 64%);   /* Same as chart-4 */
   --radius: 0.6rem;
   --sidebar-background: hsl(0 0% 98%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
@@ -60,11 +63,14 @@
   --border: hsl(240 3.7% 15.9%);
   --input: hsl(240 3.7% 15.9%);
   --ring: hsl(240 4.9% 83.9%);
-  --chart-1: hsl(220 70% 50%);
-  --chart-2: hsl(160 60% 45%);
-  --chart-3: hsl(30 80% 55%);
-  --chart-4: hsl(280 65% 60%);
-  --chart-5: hsl(340 75% 55%);
+  --chart-1: hsl(195 100% 53%);
+  --chart-2: hsl(217 100% 59%);
+  --chart-3: hsl(235 77% 78%);
+  --chart-4: hsl(247 100% 64%);
+  --chart-5: hsl(269 100% 53%);
+  --slider-start: hsl(195 100% 53%);
+  --slider-mid: hsl(217 100% 59%);
+  --slider-end: hsl(247 100% 64%);
   --sidebar-background: hsl(240 5.9% 10%);
   --sidebar-foreground: hsl(240 4.8% 95.9%);
   --sidebar-primary: hsl(224.3 76.3% 48%);
@@ -100,6 +106,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-slider-start: var(--slider-start);
+  --color-slider-mid: var(--slider-mid);
+  --color-slider-end: var(--slider-end);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
